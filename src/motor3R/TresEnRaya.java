@@ -184,5 +184,103 @@ public class TresEnRaya {
         }
     }
 
+    /**
+     * al iniciar la maquina intenta coger el centro
+     * si no puede, marca la primera vacia
+     * después analiza donde puede seguir para tres en raya
+     * si no tiene opción de continuar para tres en raya(tiene las posiciones tapadas), ocupa la primera celda vacia
+     */
+    public void juegaMaquinaI(){
+        int contM = 0;
+        int contV = 0;
+        int fi = 0;
+        int co = 0;
+        tirada:{
+            if(tablero[1][1]==VACIA){
+                tablero[1][1]=MAQUINA;
+            }else{
+                //diagonal principal
+                for(int i=0;i<3;i++){
+                    for(int j=0;j<3;j++){
+                        if(i==j){
+                            if(tablero[i][j]==MAQUINA){
+                                contM++;
+                            }
+                            if(tablero[i][j]==VACIA){
+                                fi=i;
+                                co=j;
+                                contV++;
+                            }
+                        }
+                    }
+                    if((contM+contV)==3 && contM>0){
+                        tablero[fi][co]=MAQUINA;
+                        break tirada;
+                    }
+                }
+                //diagonal secundaria
+                contM=0;
+                contV=0;
+                for(int i=0;i<3;i++){
+                    for(int j=0;j<3;j++){
+                        if((i+j)==2){
+                            if(tablero[i][j]==MAQUINA){
+                                contM++;
+                            }
+                            if(tablero[i][j]==VACIA){
+                                fi=i;
+                                co=j;
+                                contV++;
+                            }
+                        }
+                    }
+                    if((contM+contV)==3 && contM>0){
+                        tablero[fi][co]=MAQUINA;
+                        break tirada;
+                    }                                     
+                }
+                //filas
+                for(int i=0;i<3;i++){
+                    contM=0;
+                    contV=0;
+                    for(int j=0;j<3;j++){
+                        if(tablero[i][j]==MAQUINA){
+                            contM++;
+                        }
+                        if(tablero[i][j]==VACIA){
+                            fi=i;
+                            co=j;
+                            contV++;
+                        }
+                    }
+                    if((contM+contV)==3 && contM>0){
+                        tablero[fi][co]=MAQUINA;
+                        break tirada;
+                    }
+                }
 
+                    //columnas
+                for(int i=0;i<3;i++){
+                    contM=0;
+                    contV=0;
+                    for(int j=0;j<3;j++){
+                        if(tablero[i][j]==MAQUINA){
+                            contM++;
+                        }
+                        if(tablero[i][j]==VACIA){
+                            fi=i;
+                            co=j;
+                            contV++;
+                        }
+                    }
+                    if((contM+contV)==3 && contM>0){
+                        tablero[fi][co]=MAQUINA;
+                        break tirada;
+                    } 
+                }   
+          
+                juegaMaquinaF();
+            }
+        }
+    }
 }

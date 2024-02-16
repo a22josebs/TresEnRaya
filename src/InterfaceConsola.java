@@ -8,8 +8,8 @@ public class InterfaceConsola {
     int columna;
 
     char MenuDificultad(){
-        System.out.println("Escoge un nivel de dificultad\n\tfacil(f)\n\tintermedio(i)\n\tdificil(d)");
-        char nivel = sc.next().charAt(0);
+        System.out.println("Escoge un nivel de dificultad\n\tfacil(f)\n\tintermedio(i)");//\n\tdificil(d)");
+        char nivel = sc.next().toLowerCase().charAt(0);
         return nivel;
     }
 
@@ -61,9 +61,11 @@ public class InterfaceConsola {
 
     public static void main(String[] args) {
 
+        
         InterfaceConsola ic = new InterfaceConsola();                
         TresEnRaya tres = new TresEnRaya('X', 'O');
 
+        char level = ic.MenuDificultad();
         System.out.println("\n\tIniciamos el juego\n");
         ic.muestraTablero(tres.getTablero());
 
@@ -76,7 +78,12 @@ public class InterfaceConsola {
                 break;
             }
             System.out.println("\t..juega la máquina..");
-            tres.juegaMaquinaF();
+            if(level=='f'){
+                tres.juegaMaquinaF();
+            }else if(level=='i'){
+                tres.juegaMaquinaI();
+            }
+            
             ic.muestraTablero(tres.getTablero());
             if(tres.hayTresEnRaya()==tres.getMaquina()){
                 break;
