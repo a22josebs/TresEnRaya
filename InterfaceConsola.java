@@ -24,7 +24,7 @@ public class InterfaceConsola {
     }
 
     void turnoHumano(TresEnRaya tres){
-        
+        System.out.println("\t..juegas tu..");
         System.out.println("\tTeclea la fila:  ");
         fila = sc.nextInt();
         System.out.println("\tTeclea la columna:  ");
@@ -36,24 +36,11 @@ public class InterfaceConsola {
                 ocupada = false;
                 break;
             }
-        System.out.println("\tTeclea la fila:  ");
-        fila = sc.nextInt();
-        System.out.println("\tTeclea la columna:  ");
-        columna = sc.nextInt();
-        }
-    }
-
-    void turnoMaquina(TresEnRaya tres){
-        int fila;
-        int columna;
-        System.out.println("\tTurno de la MAQUINA");
-        for(int i=0;i<3;i++){
-            for(int j=0;j<3;j++){
-                if(tres.getTablero()[i][j]=='-'){
-                    tres.setTablero(i, j, tres.getMaquina());
-                    return;
-                }
-            }
+            System.out.println("esa celda está ocupada");
+            System.out.println("\tTeclea la fila:  ");
+            fila = sc.nextInt();
+            System.out.println("\tTeclea la columna:  ");
+            columna = sc.nextInt();
         }
     }
 
@@ -64,9 +51,9 @@ public class InterfaceConsola {
             b = true;
         }else if(tres.hayTresEnRaya()== tres.getMaquina()){
             System.out.println("\nJAJAJAJA te he vencido....SOY LA MAQUINAAAA\n\n");
-        }else{
-            System.out.println("\nHay EMPATE no ha ganado nadie\n\n");
             b = true;
+        }else{
+            System.out.println("\nHay EMPATE no ha ganado nadie\n\n");    
         }
         return b;
     }
@@ -77,7 +64,7 @@ public class InterfaceConsola {
         InterfaceConsola ic = new InterfaceConsola();                
         TresEnRaya tres = new TresEnRaya('X', 'O');
 
-        System.out.println("\nIniciamos el juego\n");
+        System.out.println("\n\tIniciamos el juego\n");
         ic.muestraTablero(tres.getTablero());
 
         while(tres.quedanHuecos() || !ic.hayGanador(tres)){
@@ -88,17 +75,14 @@ public class InterfaceConsola {
             if(tres.hayTresEnRaya()==tres.getHumano()){
                 break;
             }
-            ic.turnoMaquina(tres);
+            System.out.println("\t..juega la máquina..");
+            tres.juegaMaquinaF();
             ic.muestraTablero(tres.getTablero());
             if(tres.hayTresEnRaya()==tres.getMaquina()){
                 break;
             }
         }
         ic.hayGanador(tres);
-        
-
-
-
 
     }
 
