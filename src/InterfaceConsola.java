@@ -3,9 +3,9 @@ import motor3R.TresEnRaya;
 
 import java.util.Scanner;
 public class InterfaceConsola {
-    static Scanner sc = new Scanner(System.in);
-    static int fila;
-    static int columna;
+    Scanner sc = new Scanner(System.in);
+    int fila;
+    int columna;
 
     char MenuDificultad(){
         System.out.println("Escoge un nivel de dificultad\n\tfacil(f)\n\tintermedio(i)\n\tdificil(d)");
@@ -13,7 +13,7 @@ public class InterfaceConsola {
         return nivel;
     }
 
-    static void muestraTablero(char[][] tablero){
+    void muestraTablero(char[][] tablero){
         for(int i=0;i<3;i++){
             System.out.print("| ");
             for(int j=0;j<3;j++){
@@ -23,8 +23,8 @@ public class InterfaceConsola {
         }
     }
 
-    static void turnoHumano(TresEnRaya tres){
-        
+    void turnoHumano(TresEnRaya tres){
+        System.out.println("\t..juegas tu..");
         System.out.println("\tTeclea la fila:  ");
         fila = sc.nextInt();
         System.out.println("\tTeclea la columna:  ");
@@ -36,68 +36,53 @@ public class InterfaceConsola {
                 ocupada = false;
                 break;
             }
-        System.out.println("\tTeclea la fila:  ");
-        fila = sc.nextInt();
-        System.out.println("\tTeclea la columna:  ");
-        columna = sc.nextInt();
+            System.out.println("esa celda está ocupada");
+            System.out.println("\tTeclea la fila:  ");
+            fila = sc.nextInt();
+            System.out.println("\tTeclea la columna:  ");
+            columna = sc.nextInt();
         }
     }
 
-    static void turnoMaquina(TresEnRaya tres){
-        int fila;
-        int columna;
-        System.out.println("\tTurno de la MAQUINA");
-        for(int i=0;i<3;i++){
-            for(int j=0;j<3;j++){
-                if(tres.getTablero()[i][j]=='-'){
-                    tres.setTablero(i, j, tres.getMaquina());
-                    return;
-                }
-            }
-        }
-    }
-/* REVISAR BIEN ANTES ESTABA COMO BOLEAN
-    static char elGanadorEs(TresEnRaya tres, char c){
-        char c = false;
+    boolean hayGanador(TresEnRaya tres){
+        boolean b = false;
         if(tres.hayTresEnRaya()==tres.getHumano()){
-            System.out.println("Enhorabuena Has Ganado");
-            b= true;
-        }else if(tres.hayTresEnRaya()== tres.getMaquina()){
-            System.out.println("JAJA te he vencido");
+            System.out.println("\nEnhorabuena Has Ganado, has tenido suerte\n\n");
             b = true;
+        }else if(tres.hayTresEnRaya()== tres.getMaquina()){
+            System.out.println("\nJAJAJAJA te he vencido....SOY LA MAQUINAAAA\n\n");
+            b = true;
+        }else{
+            System.out.println("\nHay EMPATE no ha ganado nadie\n\n");    
         }
         return b;
     }
 
-*/
+
     public static void main(String[] args) {
 
-        boolean ganahumano = false;
-        boolean ganamaquina = false;
-
-        
+        InterfaceConsola ic = new InterfaceConsola();                
         TresEnRaya tres = new TresEnRaya('X', 'O');
-        while(tres.quedanHuecos()){
+
+        System.out.println("\n\tIniciamos el juego\n");
+        ic.muestraTablero(tres.getTablero());
+
+        while(tres.quedanHuecos() || !ic.hayGanador(tres)){
             
-            muestraTablero(tres.getTablero());
-            turnoHumano(tres);
-            muestraTablero(tres.getTablero());
+            ic.turnoHumano(tres);
+            ic.muestraTablero(tres.getTablero());
 
             if(tres.hayTresEnRaya()==tres.getHumano()){
-                ganahumano = true;
                 break;
             }
-            turnoMaquina(tres);
-            muestraTablero(tres.getTablero());
+            System.out.println("\t..juega la máquina..");
+            tres.juegaMaquinaF();
+            ic.muestraTablero(tres.getTablero());
             if(tres.hayTresEnRaya()==tres.getMaquina()){
-                ganamaquina = true;
                 break;
             }
         }
-
-
-
-
+        ic.hayGanador(tres);
 
     }
 
