@@ -53,7 +53,7 @@ public class InterfaceConsola {
             System.out.println("\nJAJAJAJA te he vencido....SOY LA MAQUINAAAA\n\n");
             b = true;
         }else{
-            System.out.println("\nHay EMPATE no ha ganado nadie\n\n");    
+            System.out.println("\nHay EMPATE no ha ganado nadie\n\n");   
         }
         return b;
     }
@@ -71,10 +71,13 @@ public class InterfaceConsola {
 
         while(tres.quedanHuecos() || !ic.hayGanador(tres)){
             
+
             ic.turnoHumano(tres);
             ic.muestraTablero(tres.getTablero());
 
             if(tres.hayTresEnRaya()==tres.getHumano()){
+                break;
+            }else if(!tres.quedanHuecos()){
                 break;
             }
             System.out.println("\t..juega la máquina..");

@@ -51,7 +51,7 @@ public class TresEnRaya {
      * @return nuevo tablerode 3x3
      */
     public char[][] getTablero(){
-        return this.tablero;
+        return  tablero;
     }
 
     /**
