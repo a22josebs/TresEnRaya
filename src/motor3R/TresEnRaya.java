@@ -51,7 +51,13 @@ public class TresEnRaya {
      * @return nuevo tablerode 3x3
      */
     public char[][] getTablero(){
-        return  tablero;
+        char[][] t = new char[3][3];
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                t[i][j] = tablero[i][j];
+            }
+        }
+        return  t; 
     }
 
     /**
